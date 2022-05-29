@@ -1,27 +1,29 @@
 import { render, screen } from "@testing-library/react";
-import { QueryClientProvider, QueryClient } from "react-query";
 import ShoppingCart from "./shopping-cart";
-import getProducts from "./get-products";
-
-jest.mock("./get-products");
+import { ProductsProvider } from "./products-context";
 
 test("renders shopping items", async () => {
   // arrange
-  getProducts.mockResolvedValue([
-    {
-      id: "1",
-      name: "Mock Pizza",
-      price: "10.00",
-      color: "Red",
-      background: "from-cyan-500 to-blue-500",
-    },
-  ]);
+  function useProductsQuery() {
+    return {
+      loading: false,
+      products: [
+        {
+          id: "1",
+          name: "Mock Pizza",
+          price: "10.00",
+          color: "Red",
+          background: "from-cyan-500 to-blue-500",
+        },
+      ],
+    };
+  }
 
   // act
   render(
-    <QueryClientProvider client={new QueryClient()}>
+    <ProductsProvider value={{ useProductsQuery }}>
       <ShoppingCart />
-    </QueryClientProvider>
+    </ProductsProvider>
   );
 
   // assert

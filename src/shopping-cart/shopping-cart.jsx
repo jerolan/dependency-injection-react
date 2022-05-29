@@ -1,20 +1,11 @@
-import { useQuery } from "react-query";
 import NavBar from "../ui/nav-bar";
-import getProducts from "./get-products";
 import List from "./list";
 import ListItem from "./list-item";
 import SearchInput from "./search-input";
-
-function useProductsQuery() {
-  const { data: products, isLoading: loading } = useQuery("products", () =>
-    getProducts()
-  );
-
-  return { products, loading };
-}
+import { useProducts } from "./products-context";
 
 export default function ShoppingCart() {
-  const { products, loading } = useProductsQuery();
+  const { products, loading } = useProducts();
 
   return (
     <>

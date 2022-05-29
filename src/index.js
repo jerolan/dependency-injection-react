@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "tailwindcss/tailwind.css";
 import App from "./app";
+import { worker } from "./msw/browser";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -9,3 +10,5 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+worker.start();

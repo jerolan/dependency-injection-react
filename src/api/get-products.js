@@ -1,15 +1,9 @@
 export default function getProducts(params) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: "1",
-          name: params.search !== "" ? params.search : `Pizza`,
-          price: "10.00",
-          color: "Red",
-          background: "from-cyan-500 to-blue-500",
-        },
-      ]);
-    }, 300);
-  });
+  const url = new URL("http://localhost:3000/api/products");
+
+  for (let k in params) {
+    url.searchParams.append(k, params[k]);
+  }
+
+  return fetch(url.toString()).then((res) => res.json());
 }

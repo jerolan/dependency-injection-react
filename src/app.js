@@ -5,7 +5,17 @@ import ShoppingCart from "./shopping-cart";
 export default function App() {
   return (
     <main className="tracking-tight">
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider
+        client={
+          new QueryClient({
+            defaultOptions: {
+              queries: {
+                staleTime: Infinity,
+              },
+            },
+          })
+        }
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<ShoppingCart />} />

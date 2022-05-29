@@ -3,10 +3,12 @@ import ShoppingCart from "./shopping-cart";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ShoppingCart />} />
-      </Routes>
-    </BrowserRouter>
+    <main className="tracking-tight">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ShoppingCart />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
   );
 }

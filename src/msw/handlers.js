@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import lodash from "lodash";
 
 export const handlers = [
-  rest.get("/api/products", (req, res, ctx) => {
+  rest.get("http://localhost:3000/api/products", (req, res, ctx) => {
     const search = req.url.searchParams.get("search");
 
     const products = lodash.times(10, () => {

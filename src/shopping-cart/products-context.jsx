@@ -19,6 +19,6 @@ function useProductsProviderValue() {
 }
 
 export function useProducts(search) {
-  const context = useProductsProviderValue();
-  return context.useProductsQuery(search);
+  const value = useProductsProviderValue();
+  return value.useProductsQuery(search);
 }

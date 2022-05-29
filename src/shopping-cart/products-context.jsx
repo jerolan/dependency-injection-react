@@ -18,7 +18,7 @@ function useProductsProviderValue() {
   return context;
 }
 
-export function useProducts(filterBy) {
+export function useProducts(search) {
   const context = useProductsProviderValue();
-  return context.useProductsQuery();
+  return context.useProductsQuery(search);
 }

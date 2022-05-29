@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import getProducts from "./get-products";
+import { getProducts } from "../api";
 
 export default function useProductsQuery() {
   const { data: products, isLoading: loading } = useQuery("products", () =>

@@ -1,6 +1,6 @@
-import ShoppingCart from "./shopping-cart";
+import { useProductsQuery } from "../queries";
 import { ProductsProvider } from "./products-context";
-import useProductsQuery from "./use-products-query";
+import ShoppingCart from "./shopping-cart";
 
 export default function ShoppingCartApp() {
   return (

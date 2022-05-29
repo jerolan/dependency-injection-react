@@ -3,9 +3,11 @@ import List from "./list";
 import ListItem from "./list-item";
 import SearchInput from "./search-input";
 import { useProducts } from "./products-context";
+import { useState } from "react";
 
 export default function ShoppingCart() {
-  const { products, loading } = useProducts();
+  const [search, setSeach] = useState("");
+  const { products, loading } = useProducts(search);
 
   return (
     <>
@@ -14,7 +16,7 @@ export default function ShoppingCart() {
         <div className="pb-8 flex items-center justify-between">
           <h4 className="text-2xl font-bold text-gray-900">My Products</h4>
           <div className="rounded-md w-1/3">
-            <SearchInput onSearch={() => {}} />
+            <SearchInput onSearch={setSeach} />
           </div>
         </div>
         {loading ? (
@@ -22,7 +24,6 @@ export default function ShoppingCart() {
         ) : (
           <List
             items={products}
-            fetchMore={() => {}}
             renderItem={(item) => (
               <ListItem
                 key={item.id}

@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ProductsProvider } from "./products-context";
 import ShoppingCart from "./shopping-cart";
 
@@ -15,35 +16,62 @@ test("renders shopping items", async () => {
   ];
 
   // act
-  render(
-    <MockProductsProvider products={products}>
-      <ShoppingCart />
-    </MockProductsProvider>
-  );
+  render(createWrapper(createUseProductsQuery(products)));
 
   // assert
   const pizzaItem = screen.getByRole("heading", { name: "Mock Pizza" });
   expect(pizzaItem).toBeInTheDocument();
 });
 
-const defaultProducts = [
-  {
-    id: "1",
-    name: "Pizza",
-    price: "10.00",
-    color: "Red",
-    background: "from-cyan-500 to-blue-500",
-  },
-];
+test("search products by query string", async () => {
+  // arrange
+  const products = [
+    {
+      id: "1",
+      name: "Custom Pizza",
+      price: "10.00",
+      color: "Red",
+      background: "from-cyan-500 to-blue-500",
+    },
+  ];
 
-function MockProductsProvider({ products = defaultProducts }) {
-  function useProductsQuery() {
+  const mockUseProductsQuery = createUseProductsQuery(products);
+
+  render(createWrapper(mockUseProductsQuery));
+
+  // act
+  const searchInput = screen.getByRole("textbox");
+  userEvent.type(searchInput, "Custom");
+
+  // assert
+  await waitFor(() =>
+    expect(mockUseProductsQuery).toHaveBeenCalledWith("Custom")
+  );
+
+  const pizzaItem = screen.getByRole("heading", { name: "Custom Pizza" });
+  expect(pizzaItem).toBeInTheDocument();
+});
+
+function createUseProductsQuery(products) {
+  const defaultProducts = [
+    {
+      id: "1",
+      name: "Pizza",
+      price: "10.00",
+      color: "Red",
+      background: "from-cyan-500 to-blue-500",
+    },
+  ];
+
+  return jest.fn((...args) => {
     return {
-      products,
+      products: products ?? defaultProducts,
       loading: false,
     };
-  }
+  });
+}
 
+function createWrapper(useProductsQuery) {
   return (
     <ProductsProvider value={{ useProductsQuery }}>
       <ShoppingCart />

@@ -1,10 +1,10 @@
-export default function getProducts() {
+export default function getProducts(params) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         {
           id: "1",
-          name: "Pizza",
+          name: params.search !== "" ? params.search : `Pizza`,
           price: "10.00",
           color: "Red",
           background: "from-cyan-500 to-blue-500",

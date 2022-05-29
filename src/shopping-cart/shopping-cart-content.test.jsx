@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProductsProvider } from "./products-context";
-import ShoppingCart from "./shopping-cart";
+import ShoppingCartContent from "./shopping-cart-content";
 
 test("renders shopping items", async () => {
   // arrange
@@ -74,7 +74,7 @@ function createUseProductsQuery(products) {
 function createWrapper(useProductsQuery) {
   return (
     <ProductsProvider value={{ useProductsQuery }}>
-      <ShoppingCart />
+      <ShoppingCartContent />
     </ProductsProvider>
   );
 }

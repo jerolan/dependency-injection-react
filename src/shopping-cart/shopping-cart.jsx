@@ -1,24 +1,9 @@
 import { useEffect, useState } from "react";
 import NavBar from "../ui/nav-bar";
+import getProducts from "./get-products";
 import List from "./list";
 import ListItem from "./list-item";
 import SearchInput from "./search-input";
-
-function getProducts() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: "1",
-          name: "Pizza",
-          price: "10.00",
-          color: "Red",
-          background: "from-cyan-500 to-blue-500",
-        },
-      ]);
-    }, 300);
-  });
-}
 
 export default function ShoppingCart() {
   const [loading, setLoading] = useState(false);

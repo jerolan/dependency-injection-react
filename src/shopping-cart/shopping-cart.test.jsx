@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { QueryClientProvider, QueryClient } from "react-query";
 import ShoppingCart from "./shopping-cart";
 import getProducts from "./get-products";
 
@@ -17,7 +18,11 @@ test("renders shopping items", async () => {
   ]);
 
   // act
-  render(<ShoppingCart />);
+  render(
+    <QueryClientProvider client={new QueryClient()}>
+      <ShoppingCart />
+    </QueryClientProvider>
+  );
 
   // assert
   const pizzaItem = await screen.findByRole("heading", { name: "Mock Pizza" });

@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import NavBar from "../ui/nav-bar";
 import getProducts from "./get-products";
 import List from "./list";
 import ListItem from "./list-item";
 import SearchInput from "./search-input";
 
-export default function ShoppingCart() {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+function useProductsQuery() {
+  const { data: products, isLoading: loading } = useQuery("products", () =>
+    getProducts()
+  );
 
-  useEffect(() => {
-    setLoading(true);
-    getProducts().then((products) => {
-      setProducts(products);
-      setLoading(false);
-    });
-  }, []);
+  return { products, loading };
+}
+
+export default function ShoppingCart() {
+  const { products, loading } = useProductsQuery();
 
   return (
     <>

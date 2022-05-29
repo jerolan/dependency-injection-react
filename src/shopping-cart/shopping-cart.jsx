@@ -1,18 +1,36 @@
+import { useEffect, useState } from "react";
 import NavBar from "../ui/nav-bar";
-import SearchInput from "./search-input";
 import List from "./list";
 import ListItem from "./list-item";
+import SearchInput from "./search-input";
+
+function getProducts() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          id: "1",
+          name: "Pizza",
+          price: "10.00",
+          color: "Red",
+          background: "from-cyan-500 to-blue-500",
+        },
+      ]);
+    }, 300);
+  });
+}
 
 export default function ShoppingCart() {
-  const products = [
-    {
-      id: crypto.randomUUID(),
-      name: "Pizza",
-      price: "10.00",
-      color: "Red",
-      background: "from-cyan-500 to-blue-500",
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    getProducts().then((products) => {
+      setProducts(products);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -24,19 +42,23 @@ export default function ShoppingCart() {
             <SearchInput onSearch={() => {}} />
           </div>
         </div>
-        <List
-          items={products}
-          fetchMore={() => {}}
-          renderItem={(item) => (
-            <ListItem
-              key={item.id}
-              background={item.background}
-              name={item.name}
-              color={item.color}
-              price={item.price}
-            />
-          )}
-        />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <List
+            items={products}
+            fetchMore={() => {}}
+            renderItem={(item) => (
+              <ListItem
+                key={item.id}
+                background={item.background}
+                name={item.name}
+                color={item.color}
+                price={item.price}
+              />
+            )}
+          />
+        )}
       </div>
     </>
   );

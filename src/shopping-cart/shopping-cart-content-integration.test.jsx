@@ -10,7 +10,7 @@ test("renders shopping items", async () => {
   render(createWrapper());
 
   // assert
-  const listItems = await screen.findAllByTestId("list-item");
+  const listItems = await screen.findAllByRole("listitem");
   expect(listItems.length).toBe(10);
 });
 
@@ -24,7 +24,6 @@ test("search products by query string", async () => {
   // assert
   const results = await screen.findAllByRole("heading", {
     name: (content) => content.startsWith("Custom"),
-    exact: false,
   });
 
   expect(results.length).toBeGreaterThan(0);

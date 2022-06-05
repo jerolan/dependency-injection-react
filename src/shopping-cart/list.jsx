@@ -5,9 +5,9 @@ export default function List({
   renderLoadingItem,
 }) {
   return (
-    <div className="grid grid-cols-3 gap-y-10 gap-x-6">
+    <ul aria-label="Product list" className="grid grid-cols-3 gap-y-10 gap-x-6">
       {items.map((item) => renderItem(item))}
       {loading ? renderLoadingItem() : null}
-    </div>
+    </ul>
   );
 }

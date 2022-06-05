@@ -10,6 +10,7 @@ export default function App() {
           new QueryClient({
             defaultOptions: {
               queries: {
+                // this setting is set for demo purposes only
                 staleTime: Infinity,
               },
             },

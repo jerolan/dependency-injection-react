@@ -13,7 +13,7 @@ export const handlers = [
           search !== "" ? search : `Pizza`
         } ${faker.commerce.productName()}`,
         price: faker.commerce.price(),
-        color: faker.commerce.color(),
+        color: faker.color.human(),
         background: "from-cyan-500 to-blue-500",
       };
     });

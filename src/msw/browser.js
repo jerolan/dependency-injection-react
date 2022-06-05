@@ -1,4 +1,5 @@
 import { setupWorker } from "msw";
-import { handlers } from "./handlers";
+import restHandlers from "./rest";
+import graphqlHandlers from "./graphql";
 
-export const worker = setupWorker(...handlers);
+export const worker = setupWorker(...restHandlers, ...graphqlHandlers);

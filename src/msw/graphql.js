@@ -1,10 +1,10 @@
-import { rest } from "msw";
+import { graphql } from "msw";
 import { faker } from "@faker-js/faker";
 import lodash from "lodash";
 
-export const handlers = [
-  rest.get("http://localhost:3000/api/products", (req, res, ctx) => {
-    const search = req.url.searchParams.get("search");
+const handlers = [
+  graphql.query("GetProducts", (req, res, ctx) => {
+    const search = req.variables.search;
 
     const products = lodash.times(10, () => {
       return {
@@ -18,6 +18,8 @@ export const handlers = [
       };
     });
 
-    return res(ctx.status(200), ctx.json(products));
+    return res(ctx.data({ products }));
   }),
 ];
+
+export default handlers;

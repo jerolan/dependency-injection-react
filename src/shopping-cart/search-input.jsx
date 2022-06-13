@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useDebounce from "./use-debounce";
+import useDebounce from "../hooks/use-debounce";
 
 export default function SearchInput({ onSearch }) {
   const [value, setState] = useState("");

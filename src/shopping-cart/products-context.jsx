@@ -20,5 +20,5 @@ function useProductsProviderValue() {
 
 export function useProducts(search) {
   const value = useProductsProviderValue();
-  return value.useProductsQuery(search);
+  return value.useProducts(search);
 }

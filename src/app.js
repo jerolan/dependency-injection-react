@@ -1,32 +1,44 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { store } from "./redux";
+import { useEffect, useState } from "react";
 import ShoppingCart from "./shopping-cart";
+import { ProductsProvider } from "./shopping-cart/products-context";
+
+function getProducts() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          id: "1",
+          name: "Pizza",
+          price: "10.00",
+          color: "Red",
+          background: "from-cyan-500 to-blue-500",
+        },
+      ]);
+    }, 300);
+  });
+}
+
+function useProducts() {
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    getProducts().then((p) => {
+      setProducts(p);
+      setLoading(false);
+    });
+  }, []);
+
+  return { products, loading };
+}
 
 export default function App() {
   return (
     <main className="tracking-tight">
-      <Provider store={store}>
-        <QueryClientProvider
-          client={
-            new QueryClient({
-              defaultOptions: {
-                queries: {
-                  // this setting is set for demo purposes only
-                  staleTime: Infinity,
-                },
-              },
-            })
-          }
-        >
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<ShoppingCart />} />
-            </Routes>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </Provider>
+      <ProductsProvider value={{ useProducts }}>
+        <ShoppingCart />
+      </ProductsProvider>
     </main>
   );
 }

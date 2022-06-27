@@ -1,5 +1,9 @@
 import { Provider } from "react-redux";
-import { ProductsReduxProvider, store } from "./redux";
+import {
+  ProductsReduxProvider,
+  ShoppingCartReduxProvider,
+  store,
+} from "./redux";
 import ShoppingCart from "./shopping-cart";
 
 export default function App() {
@@ -7,7 +11,9 @@ export default function App() {
     <main className="tracking-tight">
       <Provider store={store}>
         <ProductsReduxProvider>
-          <ShoppingCart />
+          <ShoppingCartReduxProvider>
+            <ShoppingCart />
+          </ShoppingCartReduxProvider>
         </ProductsReduxProvider>
       </Provider>
     </main>

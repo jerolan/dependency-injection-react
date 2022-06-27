@@ -1,7 +1,8 @@
+import { useCallback } from "react";
 import { useReducer } from "react";
 import { ShoppingCartProvider } from "./shopping-cart-context";
 
-const actions = {
+export const actions = {
   ADD: "ADD",
   REMOVE: "REMOVE",
 };
@@ -16,6 +17,15 @@ function reducer(state, action) {
 }
 
 export default function ShoppingCartLocalProvider({ children }) {
-  const value = useReducer(reducer, []);
-  return <ShoppingCartProvider value={value}>{children}</ShoppingCartProvider>;
+  const [state, dispatch] = useReducer(reducer, []);
+
+  const addToCart = useCallback((payload) => {
+    dispatch({ type: actions.ADD, payload });
+  }, []);
+
+  return (
+    <ShoppingCartProvider value={{ state, addToCart }}>
+      {children}
+    </ShoppingCartProvider>
+  );
 }

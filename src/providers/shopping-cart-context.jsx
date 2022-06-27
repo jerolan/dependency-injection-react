@@ -22,11 +22,11 @@ function useShoppingCartProviderValue() {
 }
 
 export function useShoppingCartState() {
-  const [state] = useShoppingCartProviderValue();
+  const { state } = useShoppingCartProviderValue();
   return state;
 }
 
-export function useShoppingCartDispatch() {
-  const [, dispatch] = useShoppingCartProviderValue();
-  return dispatch;
+export function useAddToShoppingCart() {
+  const { addToCart } = useShoppingCartProviderValue();
+  return addToCart;
 }

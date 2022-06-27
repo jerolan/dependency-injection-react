@@ -27,6 +27,7 @@ export default function ShoppingCart() {
             renderItem={(item) => (
               <ListItem
                 key={item.id}
+                id={item.id}
                 background={item.background}
                 name={item.name}
                 color={item.color}

@@ -5,13 +5,11 @@ export default function useProductsQuery(search) {
   const { data: products, isLoading: loading } = useQuery(
     ["products", search],
     async () => {
-      const {
-        products: { data },
-      } = await request(
+      const { products } = await request(
         "http://localhost:3000/graphql",
         gql`
-          query {
-            products {
+          query GetAllProducts($search: String!) {
+            products(search: $search) {
               data {
                 id
                 name
@@ -27,7 +25,7 @@ export default function useProductsQuery(search) {
         }
       );
 
-      return data;
+      return products;
     }
   );
 

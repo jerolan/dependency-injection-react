@@ -6,6 +6,7 @@ import { ProductsReactQueryProvider } from "../react-query";
 import { store, ProductsReduxProvider } from "../redux";
 import ShoppingCart from "./shopping-cart";
 import ShoppingCartLocalProvider from "../providers/shopping-cart-provider";
+import ShoppingCartReduxProvider from "../redux/shopping-cart-provider";
 
 describe.each([
   [ProductsReactQueryProvider, ShoppingCartLocalProvider, { provider: "rest" }],
@@ -14,7 +15,7 @@ describe.each([
     ShoppingCartLocalProvider,
     { provider: "graphql" },
   ],
-  [ProductsReduxProvider, ShoppingCartLocalProvider, {}],
+  [ProductsReduxProvider, ShoppingCartReduxProvider, {}],
 ])("ShoppingCart", (ProductsProvider, ShoppingCartProvider, options) => {
   test("renders shopping items", async () => {
     // arrange

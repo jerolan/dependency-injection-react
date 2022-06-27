@@ -1,6 +1,6 @@
 export default function ListItem({ background, name, color, price }) {
   return (
-    <li className="group relative">
+    <li className="group relative cursor-pointer">
       <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 h-80">
         <div className={`w-full h-full bg-gradient-to-r ${background}`} />
       </div>

@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
+import ShoppingCartLocalProvider from "./providers/shopping-cart-provider";
 import { ProductsReactQueryProvider } from "./react-query";
 import ShoppingCart from "./shopping-cart";
 
@@ -18,7 +19,9 @@ export default function App() {
         }
       >
         <ProductsReactQueryProvider provider="graphql">
-          <ShoppingCart />
+          <ShoppingCartLocalProvider>
+            <ShoppingCart />
+          </ShoppingCartLocalProvider>
         </ProductsReactQueryProvider>
       </QueryClientProvider>
     </main>

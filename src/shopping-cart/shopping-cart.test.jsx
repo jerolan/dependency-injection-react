@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProductsProvider } from "./products-context";
 import ShoppingCart from "./shopping-cart";
+import ShoppingCartLocalProvider from "../providers/shopping-cart-provider";
 
 test("renders shopping items", async () => {
   // arrange
@@ -60,7 +61,9 @@ function createWrapper(customProducts) {
 
   const wrapper = (
     <ProductsProvider value={{ useProducts: mockUseProducts }}>
-      <ShoppingCart />
+      <ShoppingCartLocalProvider>
+        <ShoppingCart />
+      </ShoppingCartLocalProvider>
     </ProductsProvider>
   );
 

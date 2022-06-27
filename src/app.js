@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ShoppingCartLocalProvider from "./providers/shopping-cart-provider";
 import ShoppingCart from "./shopping-cart";
 import { ProductsProvider } from "./shopping-cart/products-context";
 
@@ -37,7 +38,9 @@ export default function App() {
   return (
     <main className="tracking-tight">
       <ProductsProvider value={{ useProducts }}>
-        <ShoppingCart />
+        <ShoppingCartLocalProvider>
+          <ShoppingCart />
+        </ShoppingCartLocalProvider>
       </ProductsProvider>
     </main>
   );

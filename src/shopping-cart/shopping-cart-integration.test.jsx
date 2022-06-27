@@ -5,15 +5,24 @@ import { Provider } from "react-redux";
 import { ProductsReactQueryProvider } from "../react-query";
 import { store, ProductsReduxProvider } from "../redux";
 import ShoppingCart from "./shopping-cart";
+import ShoppingCartLocalProvider from "../providers/shopping-cart-provider";
 
 describe.each([
-  [ProductsReactQueryProvider, { provider: "rest" }],
-  [ProductsReactQueryProvider, { provider: "graphql" }],
-  [ProductsReduxProvider, {}],
-])("ShoppingCart", (ProductsProvider, options) => {
+  [ProductsReactQueryProvider, ShoppingCartLocalProvider, { provider: "rest" }],
+  [
+    ProductsReactQueryProvider,
+    ShoppingCartLocalProvider,
+    { provider: "graphql" },
+  ],
+  [ProductsReduxProvider, ShoppingCartLocalProvider, {}],
+])("ShoppingCart", (ProductsProvider, ShoppingCartProvider, options) => {
   test("renders shopping items", async () => {
     // arrange
-    const wrapper = createWrapper(ProductsProvider, options);
+    const wrapper = createWrapper(
+      ProductsProvider,
+      ShoppingCartProvider,
+      options
+    );
 
     // act
     render(wrapper);
@@ -24,7 +33,14 @@ describe.each([
   });
 
   test("search products by query string", async () => {
-    render(createWrapper(ProductsProvider, options));
+    // arrange
+    const wrapper = createWrapper(
+      ProductsProvider,
+      ShoppingCartProvider,
+      options
+    );
+
+    render(wrapper);
 
     // act
     const searchInput = screen.getByRole("textbox");
@@ -39,7 +55,7 @@ describe.each([
   });
 });
 
-function createWrapper(ProductsProvider, options) {
+function createWrapper(ProductsProvider, ShoppingCartProvider, options) {
   return (
     <Provider store={store}>
       <QueryClientProvider
@@ -55,7 +71,9 @@ function createWrapper(ProductsProvider, options) {
         }
       >
         <ProductsProvider {...options}>
-          <ShoppingCart />
+          <ShoppingCartProvider>
+            <ShoppingCart />
+          </ShoppingCartProvider>
         </ProductsProvider>
       </QueryClientProvider>
     </Provider>

@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import lodash from "lodash";
 
 const handlers = [
-  graphql.query("products", (req, res, ctx) => {
+  graphql.query("GetAllProducts", (req, res, ctx) => {
     const search = req.variables.search;
 
     const products = lodash.times(10, () => {

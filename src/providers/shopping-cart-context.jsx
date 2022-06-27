@@ -10,7 +10,7 @@ export function ShoppingCartProvider({ value, children }) {
   );
 }
 
-function useShoppingCartProviderValue() {
+export function useShoppingCartProviderValue() {
   const context = useContext(ShoppingCartContext);
   if (context === undefined) {
     throw new Error(
@@ -19,14 +19,4 @@ function useShoppingCartProviderValue() {
   }
 
   return context;
-}
-
-export function useShoppingCartState() {
-  const { state } = useShoppingCartProviderValue();
-  return state;
-}
-
-export function useAddToShoppingCart() {
-  const { addToCart } = useShoppingCartProviderValue();
-  return addToCart;
 }

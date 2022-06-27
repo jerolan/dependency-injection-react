@@ -1,4 +1,4 @@
-import { useShoppingCartState } from "../providers/shopping-cart-context";
+import { useShoppingCartState } from "../hooks/use-shopping-cart";
 
 export default function NavBar() {
   const items = useShoppingCartState();

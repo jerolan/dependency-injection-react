@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useAddToShoppingCart } from "../providers/shopping-cart-context";
+import { useAddToShoppingCart } from "../hooks/use-shopping-cart";
 
 export default function ListItem({ id, background, name, color, price }) {
   const addToCart = useAddToShoppingCart();

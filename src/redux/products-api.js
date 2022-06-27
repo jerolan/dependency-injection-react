@@ -5,7 +5,9 @@ const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/" }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: (search) => `products?search=${search}`,
+      query: (search) => {
+        return `products?search=${search}`;
+      },
     }),
   }),
 });
